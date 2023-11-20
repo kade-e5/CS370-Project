@@ -18,6 +18,7 @@ class Camera(object):
       self.vs.stop()
 
   def get_frame(self):
+        frame = self.vs.read()
         ret, jpeg = cv.imencode(self.file_type, frame)
         self.last_frame = jpeg
         return jpeg.tobytes()
