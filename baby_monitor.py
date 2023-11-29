@@ -11,7 +11,7 @@ PAGE="""\
 <style>
     
     h1 {text-align: center}
-    h2 {text-align: center}
+    
     p {
         text-align: center;
         border-style: outset;
@@ -23,7 +23,31 @@ PAGE="""\
     }
     
     body {
-        background-image: url('webpagebackground.png');
+        background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F340554.png&f=1&nofb=1&ipt=4666bea54fdad35e973f639bad15415b10864756249bf1f5675b2bd18cbbd1ec&ipo=images');
+        background-repeat: no-repeat;
+        background-attachment: fixed;  
+        background-size: cover;
+    }
+    
+    .container{
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    
+    .container h2 {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 45px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        background-color: rgba(0,0,0,0.5);
     }
     
     
@@ -32,13 +56,22 @@ PAGE="""\
 </head>
 
 <body>
-
-    <h1> CS370 Term Project Fall 2023: Baby Monitor </h1>
-    <p>
-        <img src="stream.mjpg" width="1920" height="1080"/>
-    </p>
-    <h2> This is a baby monitor. </h2>
+<h1> CS370 Term Project Fall 2023: Baby Monitor </h1>
+    <div class="container">
+        <p>
+            <img src="stream.mjpg" width="1920" height="1080"/>
+            <h2 id="current-time"> 12:00:00</h2>
+        </p>
+    </div>
+<script>
+    let time = document.getElementById("current-time");
+    setInterval(() => {
     
+        let d = new Date();
+        time.innerHTML = d.toLocaleTimeString();
+        
+        }, 1000)
+</script>
 </body>
 </html>
 """
