@@ -51,7 +51,7 @@
 <h1> CS370 Term Project Fall 2023: Baby Monitor </h1>
     <div class="container">
         <p>
-            <img src="https://t3.ftcdn.net/jpg/04/63/51/28/360_F_463512856_GEk2IrQkYatpRVR9YDhiZgRY2z00Zet3.jpg" width="800" height="600"/>
+            <img src="stream.mjpg" width="1920" height="1080"/>
             <h2 id="current-time"> 12:00:00 </h2>
         </p>
         <button id="recordButton"> Record video </button>
