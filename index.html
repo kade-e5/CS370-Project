@@ -1,0 +1,113 @@
+<html>
+<head>
+<style>
+    
+    h1 {text-align: center}
+    
+    p {
+        text-align: center;
+        border-style: outset;
+        border-width: 5px;
+        border-color: black;
+        border-radius: 10px;
+        width: 1920px;
+        margin-left: 300px;
+    }
+    
+    body {
+        background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F340554.png&f=1&nofb=1&ipt=4666bea54fdad35e973f639bad15415b10864756249bf1f5675b2bd18cbbd1ec&ipo=images');
+        background-repeat: no-repeat;
+        background-attachment: fixed;  
+        background-size: cover;
+    }
+    
+    .container{
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    
+    .container h2 {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 45px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .container button {
+        position: absolute;
+        width: 50;
+        height: 50;
+        top:87%;
+        left:76%;
+        background: url(https://th.bing.com/th/id/R.4dbfa8f4b4829e5320e804f1a4c2d3e7?rik=ofeVXvYqNUNOiA&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fdownload_326560.png&ehk=q3ig7tyH1OKnyi0UEPfcetvYqPD6gaCuiXTd%2fxrj%2b%2bo%3d&risl=&pid=ImgRaw&r=0) no-repeat;
+        background-size: 50px 50px;
+        cursor:pointer;
+        border: none;
+
+    }
+    
+    
+</style>
+    <title> CSU CS370 Term Project Fall 2023: Baby Monitor </title>
+</head>
+
+<body>
+<h1> CS370 Term Project Fall 2023: Baby Monitor </h1>
+    <div class="container">
+        <p>
+            <img id = "image" src="https://th.bing.com/th/id/R.01ab3c64f76e96b657ea0b407ae7f876?rik=InGGD70nQWsCSA&riu=http%3a%2f%2fwww.hdwallpaper.nu%2fwp-content%2fuploads%2f2015%2f09%2fRocky_Mountains_wallpaper_001.jpg&ehk=3upcfxHMcRCJ2hO4xVmYY79ooQwGH5CrRV63bc1iVt4%3d&risl=&pid=ImgRaw&r=0" width="900" height="600"/>
+            <h2 id="current-time"> 12:00:00</h2>
+            <button id="clickme" onclick="changeImage();"></button>
+        </p>
+    </div>
+    
+<script>
+    let time = document.getElementById("current-time");
+    setInterval(() => {
+    
+        let d = new Date();
+        time.innerHTML = d.toLocaleTimeString();
+        }, 1000)
+    let x = 0;
+    function changeImage()
+        {
+        var button = document.getElementById("clickme");
+        var img = document.getElementById("image");
+        var time = document.getElementById("current-time");
+        if(x%2 != 0 || x == 1){
+            img.width="900";
+            img.height="600";
+            button.style.background = "url('https://th.bing.com/th/id/R.4dbfa8f4b4829e5320e804f1a4c2d3e7?rik=ofeVXvYqNUNOiA&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fdownload_326560.png&ehk=q3ig7tyH1OKnyi0UEPfcetvYqPD6gaCuiXTd%2fxrj%2b%2bo%3d&risl=&pid=ImgRaw&r=0')";
+            button.style.top = "87%";
+            button.style.left = "76%";
+            button.style.width = "50";
+            button.style.height = "50";
+            button.style.backgroundSize = "50px 50px";
+            time.style.top = "5%";
+        }
+        else{
+            img.width="1520";
+            img.height="790";
+            button.style.background = "url('https://cdn2.iconfinder.com/data/icons/media-player-ui/512/Media-Icon-23-512.png')";
+            button.style.top = "93%";
+            button.style.left = "93%";
+            button.style.width = "100";
+            button.style.height = "100";
+            button.style.backgroundSize = "150px 150px";
+            time.style.top = "-10%";
+        }
+        x += 1;
+        return false;
+        }
+</script>
+</body>
+</html>
