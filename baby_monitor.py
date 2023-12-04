@@ -62,6 +62,7 @@ PAGE="""\
     <div class="container">
             <img src="stream.mjpg" style="max-width:100%; height:auto;"/>
             <h2 id="current-time"style="font-size:3vw"></h2>
+            <button id="clickme" onclick="changeImage();"> Fullscreen </button>
     </div>
     
 <script>
@@ -72,6 +73,21 @@ PAGE="""\
         time.innerHTML = d.toLocaleString();
         
         }, 1000)
+        let x = 0;
+    function changeImage()
+        {
+        var button = document.getElementById("clickme");
+        var img = document.getElementById("image");
+        var time = document.getElementById("current-time");
+        if(x%2 != 0 || x == 1){
+            img.style.maxWidth = "70%";
+        }
+        else{
+            img.style.maxWidth = "100%";
+        }
+        x += 1;
+        return false;
+        }
 </script>
 <script>
     const d = new Date();
