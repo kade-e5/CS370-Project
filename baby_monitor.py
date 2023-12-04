@@ -2,12 +2,14 @@ import io
 import picamera
 import logging
 import socketserver
+import datetime as dt
 from threading import Condition
 from http import server
 
 PAGE="""\
 <html>
 <head>
+<meta name= "viewport" content="width=device-width, initial-scale=1.0">
 <style>
     
     h1 {text-align: center}
@@ -58,20 +60,25 @@ PAGE="""\
 <body>
 <h1> CS370 Term Project Fall 2023: Baby Monitor </h1>
     <div class="container">
-        <p>
-            <img src="stream.mjpg" width="1920" height="1080"/>
-            <h2 id="current-time"> 12:00:00</h2>
-        </p>
+            <img src="stream.mjpg" style="max-width:100%; height:auto;"/>
+            <h2 id="current-time"style="font-size:3vw"></h2>
     </div>
+    
 <script>
     let time = document.getElementById("current-time");
     setInterval(() => {
     
         let d = new Date();
-        time.innerHTML = d.toLocaleTimeString();
+        time.innerHTML = d.toLocaleString();
         
         }, 1000)
 </script>
+<script>
+    const d = new Date();
+    let text = d.toLocaleDateString();
+    document.getElementById("current-date").innerHTML = text;
+</script>
+
 </body>
 </html>
 """
@@ -138,8 +145,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 # 4 fps = 6 Mbps
 #24 fps = 18 Mbps
-with picamera.PiCamera(resolution='1280x720', framerate=30) as camera:
-    camera.rotation = 0
+with picamera.PiCamera(resolution='1280x720', framerate=30) as camera:    
     output = StreamingOutput()
     camera.start_recording(output, format='mjpeg')
     try:
