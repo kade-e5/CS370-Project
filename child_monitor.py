@@ -89,7 +89,9 @@ PAGE="""\
         x += 1;
         return false;
         }
-        
+
+        // Reference - https://hackernoon.com/how-to-take-screenshots-in-the-browser-using-javascript-l92k3xq7
+        // Paragraph 2 - generate screenshots with getDisplayMedia()
         document.getElementById("save").onclick = function() {
             var canvas = document.createElement("canvas");
             var image = document.getElementById("piImage");
@@ -100,7 +102,8 @@ PAGE="""\
             window.location = canvas.toDataURL("image/png");
             window.open(canvas.toDataURL("image/png"));
         }
-        
+
+        // Reference - https://dev.to/0shuvo0/lets-create-a-screen-recorder-with-js-3leb
         let button = document.getElementById("recordButton")
     button.addEventListener("click", async function() {
         let stream = await navigator.mediaDevices.getDisplayMedia({
