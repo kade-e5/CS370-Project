@@ -54,16 +54,19 @@ PAGE="""\
     
     
 </style>
-    <title> CSU CS370 Term Project Fall 2023: Baby Monitor </title>
+    <title> CSU CS370 Term Project Fall 2023: Child Monitor </title>
 </head>
 
 <body>
-<h1> CS370 Term Project Fall 2023: Baby Monitor </h1>
+<h1> CS370 Term Project Fall 2023: Child Monitor </h1>
     <div class="container">
-            <img src="stream.mjpg" style="max-width:100%; height:auto;"/>
+            <img id="piImage" src="stream.mjpg" style="max-width:70%; height:auto;"/>
             <h2 id="current-time"style="font-size:3vw"></h2>
-            <button id="clickme" onclick="changeImage();"> Fullscreen </button>
     </div>
+    <button id="clickme" onclick="changeImage();"> Fullscreen </button>
+    <input type="button" id="save" value="Take Photo">
+    <button id="recordButton"> Record video </button>
+
     
 <script>
     let time = document.getElementById("current-time");
@@ -72,13 +75,11 @@ PAGE="""\
         let d = new Date();
         time.innerHTML = d.toLocaleString();
         
-        }, 1000)
+        }, 1000);
         let x = 0;
     function changeImage()
         {
-        var button = document.getElementById("clickme");
-        var img = document.getElementById("image");
-        var time = document.getElementById("current-time");
+        var img = document.getElementById("piImage");
         if(x%2 != 0 || x == 1){
             img.style.maxWidth = "70%";
         }
@@ -88,13 +89,48 @@ PAGE="""\
         x += 1;
         return false;
         }
-</script>
-<script>
-    const d = new Date();
-    let text = d.toLocaleDateString();
-    document.getElementById("current-date").innerHTML = text;
-</script>
+        
+        document.getElementById("save").onclick = function() {
+            var canvas = document.createElement("canvas");
+            var image = document.getElementById("piImage");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            var context = canvas.getContext("2d");
+            context.drawImage(image, 0, 0);
+            window.location = canvas.toDataURL("image/png");
+            window.open(canvas.toDataURL("image/png"));
+        }
+        
+        let button = document.getElementById("recordButton")
+    button.addEventListener("click", async function() {
+        let stream = await navigator.mediaDevices.getDisplayMedia({
+            video: true
+        })
+        const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9")
+            ? "video/webm; codecs=vp9"
+            : "video/webm"
+        let recorder = new MediaRecorder(stream, {
+            mimeType: mime
+        })
 
+        let chunks = []
+        recorder.addEventListener("dataavailable", function(e) {
+            chunks.push(e.data)
+        })
+        recorder.addEventListener("stop", function() {
+            let blob = new Blob(chunks, {
+                type: chunks[0].type
+            })
+
+            let x = document.createElement("a")
+            x.href = URL.createObjectURL(blob)
+            x.download = "ChildMonitor_Footage.webm"
+            x.click()
+        })
+        recorder.start()
+    });
+    
+</script>
 </body>
 </html>
 """
@@ -170,4 +206,3 @@ with picamera.PiCamera(resolution='1280x720', framerate=30) as camera:
         server.serve_forever()
     finally:
         camera.stop_recording()
-
